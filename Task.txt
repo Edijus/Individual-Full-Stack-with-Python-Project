@@ -1,0 +1,70 @@
+Individual Full-Stack with Python Project
+Due October 19, 2022 6:00 PM
+Instructions
+Jūsų projektas
+
+Sukurkite internetinę svetainę, kuri naudodami Flask arba Django. Papildomai galite naudoti bet kokius papildomus paketus ar išorinius APIs.
+
+Minimali apimtis:
+
+Svetainė turi leisti registraciją/prisijungimą. (3)
+
+Puslapyje turi būti apsaugoti ir neapsaugoti maršrutai (angl. routes). (2)
+
+Duomenų bazėje turėtų būti bent keturios Jūsų sukurtos lenteles arba naudojami keli išoriniai APIs. (3)
+Projektas turi turėti dokumentacija ir paleidimo instrukcijas. (1)
+Prisitaikantis dizainas (angl. "Responsive Web Design"). Galima naudoti ir "UI framework". (1)
+Pastaba: išimtys minimaliems reikalavimams ir kai kurioms siūlomoms technologijoms gali būti taikomos tik tada, jei parodote, kad projektas yra sudėtingesnis nei prašoma.
+
+Dokumentacijos (README.md) pavyzdinis šablonas
+
+```
+# Introduction
+
+TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
+
+
+
+# Getting Started
+
+TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+
+
+
+1. Installation process
+
+2. Software dependencies
+
+3. Latest releases
+
+4. API references
+
+
+
+# Build
+
+TODO: Describe and show how to build your code.
+
+```
+
+Užduoties įkėlimo instrukcijos
+
+Instrukcijas, kaip valdyti GitHub repozitorijas rasite - https://docs.github.com/en/repositories/creating-and-managing-repositories/about-repositories arba step-by-step žemiau.
+
+1. Sukurti GitHub repozitoriją.
+
+Instrukcijas, kaip susikurti GitHub repozitoriją rasite - https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository
+
+2. Pakeitimus daryti atskiroje šakoje (pvz. dev), kad būtų galima sukurti Pull Request.
+
+Kaip galima sukurti Pull Request galite sužinoti čia - https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
+
+Naują šaką galima susikurti įvykdžius `git checkout -b dev` komandą terminale.
+
+3. Kuriant sistemą pakeitimus nuolatos saugoti su pakeitimus su prasmingomis "commit" žinutėmis.
+
+4. Pabaigus projektą patikrinti ar visi pakeitimai yra nusiųsti į GitHub, sukurti Pull Request per GitHub puslapį į pagrindinę šaką (`main` arba `master`) ir pateikti nuorodą šiame "assignment".
+
+Jeigu to padaryti nepavyks galite tiesiog įkelti archyvuotus failus.
+
+Sėkmės!
