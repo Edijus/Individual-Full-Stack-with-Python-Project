@@ -1,3 +1,5 @@
+# Projektas turi turėti dokumentacija ir paleidimo instrukcijas. (1)
+
 # Individual-Full-Stack-with-Python-Project
 
 # Introduction
