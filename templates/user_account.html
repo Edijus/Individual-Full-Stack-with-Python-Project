@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% block content %}
-<form method="post" action="{% url 'user_account' %}" enctype="multipart/form-data">
+<form method="post" action="{% url 'application:user_account' %}" enctype="multipart/form-data">
     {% csrf_token %}
 
     {% if form.errors %}

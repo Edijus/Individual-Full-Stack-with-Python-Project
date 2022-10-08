@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">User</th>
+        <th scope="col">Score</th>
+        <th scope="col">Date</th>
+    </tr>
+    </thead>
+    {% for order in orders %}
+    <tbody>
+    <tr class="table-success">
+        <th scope="row">{{ leaderboard.user }}</th>
+        <td>{{ leaderboard.score }}</td>
+        <td>{{ leaderboard.date_created }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

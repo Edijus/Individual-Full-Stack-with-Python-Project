@@ -17,16 +17,19 @@ class Service(models.Model):
         return self.name
 
 
-class Order(models.Model):
+class Leaderboard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    vehicle = models.CharField(max_length=30, unique=True)
-    image = models.ImageField(null=True, blank=True)
-    date_created = models.DateField(auto_now_add=True)
+    score = models.IntegerField(null=False)
+    date_created = models.DateField(auto_now_add=True, null=False)
 
     def __str__(self):
-        return f'{self.vehicle} ({self.user})'
+        return f'{self.score} ({self.user})'
+
+    def __repr__(self):
+        return repr('Hello ' + self.score)
 
 
+"""
 class OrderDetail(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -35,3 +38,4 @@ class OrderDetail(models.Model):
 
     def __str__(self):
         return self.service
+"""

@@ -3,17 +3,66 @@ from django.contrib.auth import login
 from .forms import SignUpForm, EditUserAccountForm
 from django.views.generic.list import ListView
 from django.views.generic import View
-from .models import Order
+from .models import Leaderboard
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
 
+class LeaderboardBaseView(View):
+    model = Leaderboard
+    fields = '__all__'
+    success_url = reverse_lazy('application:leaderboard')
+
+
+""""
+class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
+    pass
+"""
+
+""""
+class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
+    template_name = "application/leaderboard_list.html"
+
+    def get_queryset(self):
+        # Use get_queryset instead of queryset because you want timezone.now()
+        # to be called when the view runs, not when the server starts
+        # leaders = Leaderboard.objects.order_by("-score")[:25]
+        leaders = Leaderboard.objects.order_by("-score")
+        return leaders
+"""
+
+
+class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
+    model = Leaderboard
+    form_class = EditUserAccountForm
+    context_object_name = 'profiles'
+    template_name = 'application/leaderboard_list.html'
+    profiles = []
+
+    def get_queryset(self):
+        """"
+        form = self.form_class(self.request.GET)
+        if form.is_valid():
+            return Leaderboard.objects.filter(name__icontains=form.cleaned_data['name'])
+        """
+        leaders = Leaderboard.objects.all()
+        return leaders
+
+
+""""
+def RetrieveLeaderboardView(request):
+    leaderboard = Leaderboard.objects.all()
+    return render(request, 'leaderboard_list.html', locals())
+"""
+
+
+"""
 class OrderBaseView(View):
     model = Order
     fields = '__all__'
-    success_url = reverse_lazy('application:orders_all')
+    success_url = reverse_lazy('application:leaderboard')
 
 
 class RetrieveOrdersView(OrderBaseView, ListView):
@@ -30,6 +79,7 @@ class UpdateOrderView(OrderBaseView, UpdateView):
 
 class DeleteOrderView(OrderBaseView, DeleteView):
     pass
+"""
 
 
 def index(request):
@@ -42,7 +92,7 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect('application:index')
     else:
         form = SignUpForm()
     return render(request, 'registration/sign_up.html', context={'form': form})
@@ -53,7 +103,7 @@ def user_account(request):
         form = EditUserAccountForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('user_account')
+            return redirect('application:user_account')
     else:
         form = EditUserAccountForm(
             initial={
