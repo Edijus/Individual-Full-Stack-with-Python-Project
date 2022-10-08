@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User  # , Order, OrderDetail
+from .models import User, Leaderboard, Questions  # , Order, OrderDetail,
 
 
 class SignUpForm(UserCreationForm):
@@ -27,3 +27,15 @@ class EditUserAccountForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['email', 'image']
+
+
+class EditLeaderboardForm(forms.ModelForm):
+    class Meta:
+        model = Leaderboard
+        fields = ['score']
+
+
+class EditLeaderboardForm(forms.ModelForm):
+    class Meta:
+        model = Leaderboard
+        fields = ['score']

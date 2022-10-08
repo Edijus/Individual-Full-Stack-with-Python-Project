@@ -14,8 +14,8 @@ class Questions(models.Model):
     sum = models.IntegerField(null=False)
     date_created = models.DateField(auto_now_add=True)
 
-    def __str__(self):
-        return self.inquiry
+    #def __str__(self):
+    #    return self.inquiry
 
 
 class Leaderboard(models.Model):
@@ -56,5 +56,5 @@ class Answers(models.Model):
             models.UniqueConstraint(fields=['question', 'answer'], name='unq_question_answer')
         ]
 
-    def __str__(self):
-        return self.answer
+    #def __str__(self):
+    #    return self.answer

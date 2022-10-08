@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from .forms import SignUpForm, EditUserAccountForm
+from .forms import SignUpForm, EditUserAccountForm, EditLeaderboardForm
 from django.views.generic.list import ListView
 from django.views.generic import View
-from .models import Leaderboard
+from .models import Leaderboard, Questions, Answers
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .models import User
@@ -20,6 +20,12 @@ class RetrieveLeaderboardView(LeaderboardBaseView, ListView, User):
     def get_queryset(self):
         leaders = Leaderboard.objects.order_by("-score")[:10]
         return leaders
+
+
+class RetrieveQuestionsView(ListView, User):
+    def get_queryset(self):
+        questions = Questions.objects
+        return questions
 
 
 """"
@@ -101,3 +107,29 @@ def user_account(request):
             }
         )
     return render(request, 'user_account.html', context={'form': form})
+
+
+def question_request(request):
+    if request.method == 'POST':
+        form = EditUserAccountForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('application:user_account')
+    else:
+        form = EditLeaderboardForm(
+            initial={
+                'score': request.user.email,
+                'image': request.user.image
+            }
+        )
+
+        # form = Answers.objects.select_related('question').filter(question__sum=100) # .order_by('?').first()   #  .values_list('question__id', 'answers__id')
+        question_id = int(Questions.objects.filter(sum=100).values_list('id').order_by('?').first()[0])
+        the_question = Questions.objects.filter(id=question_id)
+        answers = Answers.objects.filter(question_id=question_id).order_by('-is_correct', '?')[:4]
+        form = {
+            'the_question': the_question,
+            'answers': answers
+        }
+        # form = form.query.join(answers__question == questions__id)
+    return render(request, 'application/play.html', context={'form': form})
