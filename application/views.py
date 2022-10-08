@@ -5,22 +5,18 @@ from django.views.generic.list import ListView
 from django.views.generic import View
 from .models import Leaderboard
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
+from .models import User
 
 
 # Create your views here.
-""""
-class RetrieveLeaderboardView(ListView):
-    model = Leaderboard
-"""
-
 class LeaderboardBaseView(View):
     model = Leaderboard
     fields = '__all__'
     success_url = reverse_lazy('application:leaderboard')
 
 
-class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
+class RetrieveLeaderboardView(LeaderboardBaseView, ListView, User):
     def get_queryset(self):
         leaders = Leaderboard.objects.order_by("-score")[:10]
         return leaders
