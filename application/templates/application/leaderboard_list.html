@@ -8,12 +8,12 @@
         <th scope="col">Date</th>
     </tr>
     </thead>
-    {% for order in orders %}
+    {% for leader in leaderboard_list %}
     <tbody>
     <tr class="table-success">
-        <th scope="row">{{ leaderboard.user }}</th>
-        <td>{{ leaderboard.score }}</td>
-        <td>{{ leaderboard.date_created }}</td>
+        <th scope="row">{{ leader.user }}</th>
+        <td>{{ leader.score }}</td>
+        <td>{{ leader.date_created }}</td>
     </tr>
     {% endfor %}
     </tbody>

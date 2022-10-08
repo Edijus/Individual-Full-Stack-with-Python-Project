@@ -9,11 +9,21 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
+""""
+class RetrieveLeaderboardView(ListView):
+    model = Leaderboard
+"""
 
 class LeaderboardBaseView(View):
     model = Leaderboard
     fields = '__all__'
     success_url = reverse_lazy('application:leaderboard')
+
+
+class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
+    def get_queryset(self):
+        leaders = Leaderboard.objects.order_by("-score")[:10]
+        return leaders
 
 
 """"
@@ -32,23 +42,6 @@ class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
         leaders = Leaderboard.objects.order_by("-score")
         return leaders
 """
-
-
-class RetrieveLeaderboardView(LeaderboardBaseView, ListView):
-    model = Leaderboard
-    form_class = EditUserAccountForm
-    context_object_name = 'profiles'
-    template_name = 'application/leaderboard_list.html'
-    profiles = []
-
-    def get_queryset(self):
-        """"
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            return Leaderboard.objects.filter(name__icontains=form.cleaned_data['name'])
-        """
-        leaders = Leaderboard.objects.all()
-        return leaders
 
 
 """"

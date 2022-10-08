@@ -23,10 +23,7 @@ class Leaderboard(models.Model):
     date_created = models.DateField(auto_now_add=True, null=False)
 
     def __str__(self):
-        return f'{self.score} ({self.user})'
-
-    def __repr__(self):
-        return repr('Hello ' + self.score)
+        return f'({self.user})'
 
 
 """

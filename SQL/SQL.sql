@@ -73,7 +73,7 @@ WHERE
 INSERT INTO application_leaderboard(score, date_created, user_id)
 SELECT
   1000,
-  '2022-08-15 21:52',
+  '2022-08-15',
   id
 FROM
   application_user
