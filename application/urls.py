@@ -4,7 +4,7 @@ from .views import index, sign_up, user_account, RetrieveOrdersView, CreateOrder
 app_name = 'application'  # namespace
 
 urlpatterns = [
-    path('', index, name='index_test'),
+    path('', index, name='index'),
     path('orders/', RetrieveOrdersView.as_view(), name='orders_all'),
     path('orders/create/', CreateOrderView.as_view(), name='order_create'),
     path('orders/<int:pk>/update/', UpdateOrderView.as_view(), name='order_update'),

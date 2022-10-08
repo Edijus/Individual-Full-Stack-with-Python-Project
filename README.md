@@ -17,7 +17,11 @@ Who Wants to Be a Millionaire quiz game. The objective is to score more than my 
 
 
 # Build
-makemigrations
-migrate
+To run migrations.
+python manage.py makemigrations
+python manage.py migrate
+To create super user run.
+python manage.py createsuperuser
+After running this command it will ask for username, password. You can access admin panel from localhost:8000/admin/
 execute SQL\DDL.sql
-runserver
+python manage.py runserver

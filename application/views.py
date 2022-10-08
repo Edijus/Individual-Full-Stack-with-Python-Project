@@ -42,7 +42,7 @@ def sign_up(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index_test')
+            return redirect('index')
     else:
         form = SignUpForm()
     return render(request, 'registration/sign_up.html', context={'form': form})
