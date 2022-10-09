@@ -117,7 +117,17 @@ def question_request(request):
         request.POST['user'] = request.user.id
         form = EditLeaderboardForm(request.POST)
         if form.is_valid():
-            form.save()
+            correct_answer = int(Answers.objects.filter(question=request.POST['question_id']).filter(is_correct=True)
+                .values_list('id').order_by('?').first()[0])
+            if correct_answer == int(request.POST['answer']):
+                form.save()
+            else:
+                form = {
+                    'score': request.POST['score']
+                }
+
+                return render(request, 'application/game_over.html', context={'form': form})
+
             the_question = Questions.objects.filter(sum__gt=request.POST['score']).values_list('sum')\
                 .order_by('sum').first()
             if the_question is not None:

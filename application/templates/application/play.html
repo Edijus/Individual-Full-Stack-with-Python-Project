@@ -4,20 +4,20 @@
 {% if form %}
 <form action="" method="post">
     {% csrf_token %}
-    {% for question in form.the_question %}
-      {{ question.inquiry }}
+    {{ form.score }}$ {% for question in form.the_question %}
+      {{ question.inquiry }}<br>
+    <input type="hidden" name="question_id" value="{{ question.id }}">
     {% endfor %} <br>
 
     <fieldset>
         {% for answer in form.answers %}
             <div>
-              <input type="radio" id="{{ answer.id  }}" value="{{ answer.id  }}" name="answer">
+              <input type="radio" id="{{ answer.id  }}" value="{{ answer.id  }}" name="answer" required>
               <label for="{{ answer.id  }}">{{ answer.answer }}</label>
             </div>
         {% endfor %} <br>
     </fieldset>
     <input type="hidden" name="score" value="{{ form.score }}">
-    score: {{ form.score }} <br>
     <input type="submit" value="Submit">
 
 </form>
