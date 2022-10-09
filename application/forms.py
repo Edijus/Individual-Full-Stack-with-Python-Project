@@ -1,26 +1,12 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, Leaderboard, Questions  # , Order, OrderDetail,
+from django.contrib.auth.forms import UserCreationForm
+from .models import User, Leaderboard
 
 
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
-
-"""
-class CreateOrderForm(forms.ModelForm):
-    class Meta:
-        model = Order
-        fields = ['vehicle', 'image', 'user']
-
-
-class CreateOrderDetailForm(forms.ModelForm):
-    class Meta:
-        model = OrderDetail
-        fields = ['service', 'order', 'quantity']
-"""
 
 
 class EditUserAccountForm(forms.ModelForm):

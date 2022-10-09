@@ -282,7 +282,7 @@ INSERT INTO application_answers(answer, is_correct, date_created, question_id)
 VALUES('Harry Potter', FALSE, CURRENT_DATE, 9);
 
 INSERT INTO application_answers(answer, is_correct, date_created, question_id)
-VALUES('Sel', FALSE, CURRENT_DATE, 89);
+VALUES('Sel', FALSE, CURRENT_DATE, 9);
 
 INSERT INTO application_answers(answer, is_correct, date_created, question_id)
 VALUES('Mary J. Blige', FALSE, CURRENT_DATE, 9);

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models import Q
 
 
 # Create your models here.
@@ -14,10 +13,6 @@ class Questions(models.Model):
     sum = models.IntegerField(null=False)
     date_created = models.DateField(auto_now_add=True)
 
-    #def __str__(self):
-    #    return self.inquiry
-
-
 class Leaderboard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.IntegerField(null=False)
@@ -28,18 +23,6 @@ class Leaderboard(models.Model):
 
     def __str__(self):
         return f'({self.user})'
-
-
-"""
-class OrderDetail(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-    date_created = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.service
-"""
 
 
 class Answers(models.Model):
@@ -55,6 +38,3 @@ class Answers(models.Model):
             #                        name='unq_correct_question_answer'),
             models.UniqueConstraint(fields=['question', 'answer'], name='unq_question_answer')
         ]
-
-    #def __str__(self):
-    #    return self.answer
