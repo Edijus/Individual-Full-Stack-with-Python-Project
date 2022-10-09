@@ -38,4 +38,4 @@ class EditLeaderboardForm(forms.ModelForm):
 class EditLeaderboardForm(forms.ModelForm):
     class Meta:
         model = Leaderboard
-        fields = ['score']
+        fields = ['score', 'user']

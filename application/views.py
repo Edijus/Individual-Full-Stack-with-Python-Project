@@ -7,6 +7,7 @@ from .models import Leaderboard, Questions, Answers
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .models import User
+import random
 
 
 # Create your views here.
@@ -110,26 +111,36 @@ def user_account(request):
 
 
 def question_request(request):
+    next_score = 100
     if request.method == 'POST':
-        form = EditUserAccountForm(request.POST, request.FILES)
+        request.POST._mutable = True
+        request.POST['user'] = request.user.id
+        form = EditLeaderboardForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('application:user_account')
+            the_question = Questions.objects.filter(sum__gt=request.POST['score']).values_list('sum')\
+                .order_by('sum').first()
+            if the_question is not None:
+                next_score = int(the_question[0])
+            question_id = int(Questions.objects.filter(sum=next_score).values_list('id').order_by('?').first()[0])
     else:
-        form = EditLeaderboardForm(
-            initial={
-                'score': request.user.email,
-                'image': request.user.image
-            }
-        )
+        # Get random question worth 100
+        question_id = int(Questions.objects.filter(sum=next_score).values_list('id').order_by('?').first()[0])
 
-        # form = Answers.objects.select_related('question').filter(question__sum=100) # .order_by('?').first()   #  .values_list('question__id', 'answers__id')
-        question_id = int(Questions.objects.filter(sum=100).values_list('id').order_by('?').first()[0])
-        the_question = Questions.objects.filter(id=question_id)
-        answers = Answers.objects.filter(question_id=question_id).order_by('-is_correct', '?')[:4]
-        form = {
-            'the_question': the_question,
-            'answers': answers
-        }
-        # form = form.query.join(answers__question == questions__id)
+    # get the actual question
+    the_question = Questions.objects.filter(id=question_id)
+    # Choose 4 random answers, first one is correct
+    answers = Answers.objects.filter(question_id=question_id).order_by('-is_correct', '?')[:4]
+
+    # randomize answer list
+    answer_list = list(answers)
+    random.shuffle(answer_list)
+    answers = tuple(answer_list)
+
+    form = {
+        'the_question': the_question,
+        'answers': answers,
+        'score': next_score
+    }
+
     return render(request, 'application/play.html', context={'form': form})
