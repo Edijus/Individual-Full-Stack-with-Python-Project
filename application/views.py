@@ -61,7 +61,7 @@ def user_account(request):
 
 
 def question_request(request):
-    next_score = 100
+    next_score = int(Questions.objects.values_list('sum').order_by('sum').first()[0])
     if request.method == 'POST':
         request.POST._mutable = True
         request.POST['user'] = request.user.id
@@ -84,7 +84,7 @@ def question_request(request):
                 next_score = int(the_question[0])
             question_id = int(Questions.objects.filter(sum=next_score).values_list('id').order_by('?').first()[0])
     else:
-        # Get random question worth 100
+        # Get random question
         question_id = int(Questions.objects.filter(sum=next_score).values_list('id').order_by('?').first()[0])
 
     # get the actual question
