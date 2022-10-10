@@ -67,13 +67,22 @@ def question_request(request):
         request.POST['user'] = request.user.id
         form = EditLeaderboardForm(request.POST)
         if form.is_valid():
-            correct_answer = int(Answers.objects.filter(question=request.POST['question_id']).filter(is_correct=True)
-                .values_list('id').order_by('?').first()[0])
+            correct_answer = int(Answers.objects.filter(question=request.POST['question_id']).filter(is_correct=True).
+                                 values_list('id').order_by('?').first()[0])
             if correct_answer == int(request.POST['answer']):
                 form.save()
             else:
+                if int(request.POST['score']) == next_score:
+                    previous_score = 0
+                else:
+                    previous_score = Leaderboard.objects.filter(user=request.user.id).values_list('score').\
+                        order_by('-id').first()
+                    if previous_score is not None:
+                        previous_score = int(previous_score[0])
+                    else:
+                        previous_score = 0
                 form = {
-                    'score': request.POST['score']
+                    'score': previous_score
                 }
 
                 return render(request, 'application/game_over.html', context={'form': form})
